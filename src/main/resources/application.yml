@@ -1,0 +1,24 @@
+server:
+ port: 8081
+spring:
+ datasource:
+  driver-class-name: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/?useUnicode=true&characterEncoding=UTF-8
+  username: root
+  password: root
+  mail:
+    host: smtp.qq.com
+    username: 297966645@qq.com
+    password: mdbpnmpygtvbbdhe
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    default-encoding: UTF-8
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.qf.pojo
+
