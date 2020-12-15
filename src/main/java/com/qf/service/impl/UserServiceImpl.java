@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
         User byEmail = userRepository.findByEmail(email);
         if (user.getPassword() != null && user.getPassword().equals(byEmail.getPassword())){
             UUID uuid = UUID.randomUUID();
-            redisUtils.set(uuid.toString(),user);
+            redisUtils.set(uuid.toString(),byEmail);
             baseResp.setData(uuid.toString());
             baseResp.setCode(200);
             return baseResp;
