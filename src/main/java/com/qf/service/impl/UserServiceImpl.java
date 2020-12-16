@@ -1,6 +1,7 @@
 package com.qf.service.impl;
 
 import com.qf.common.BaseResp;
+import com.qf.dao.UserMapper;
 import com.qf.dao.UserRepository;
 import com.qf.pojo.User;
 import com.qf.service.UserService;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     JavaMailSender javaMailSender;
+
+    @Autowired
+    UserMapper userMapper;
 
     @Value("${spring.mail.username}")
     private String from;
@@ -93,10 +97,11 @@ public class UserServiceImpl implements UserService {
     public BaseResp login(User user) {
         BaseResp baseResp = new BaseResp();
         String email = user.getEmail();
-        User byEmail = userRepository.findByEmail(email);
+        //User byEmail = userRepository.findByEmail(email);
+        User byEmail = userMapper.fingByEmail(email);
         if (user.getPassword() != null && user.getPassword().equals(byEmail.getPassword())){
             UUID uuid = UUID.randomUUID();
-            redisUtils.set(uuid.toString(),user);
+            redisUtils.set(uuid.toString(),byEmail);
             baseResp.setData(uuid.toString());
             baseResp.setCode(200);
             return baseResp;
