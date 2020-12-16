@@ -1,19 +1,15 @@
 server:
- port: 8090
+ port: 8081
 spring:
  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/erbendao?useUnicode=true&characterEncoding=UTF-8&useSSL=false
-    username: root
-    password: root
- jpa:
-   database: MYSQL
-   show-sql: true
-   generate-ddl: true
- mail:
+  driver-class-name: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/erbendao?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+  username: root
+  password: root
+  mail:
     host: smtp.qq.com
     username: 297966645@qq.com
-    password: amkaqkgdsgkxbicc
+    password: mdbpnmpygtvbbdhe
     properties:
       mail:
         smtp:
@@ -25,4 +21,10 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.qf.pojo
+
+qiniu:
+  ak: AWpCqQEY9qvOMbmguZsIJaA5T6EoGdC5Ywim4oKU
+  sk: BU7fgwT675Ka7MJX1B2SSxy3rrdp9fNSyX8_ZyC-
+  bucket: donycode
+  url: http://qkuw9yntd.hb-bkt.clouddn.com/
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.OrderMapper">
+
+    <resultMap id="BaserResult" type="order">
+        <id column="id" property="id"></id>
+        <result column="transferid" property="transferId"></result>
+        <result column="uid" property="uid"></result>
+        <result column="price" property="price"></result>
+        <result column="name" property="name"></result>
+    </resultMap>
+
+    <insert id="insertOrder">
+        insert into orderr (name,price,transferid,uid) values (#{name},#{price},#{transferId},#{uid})
+    </insert>
+
+</mapper>
