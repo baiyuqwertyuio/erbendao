@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.MovieMapper">
+    <resultMap id="base" type="com.qf.pojo.Movie">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="score" column="score"/>
+        <result property="url" column="url"/>
+        <result property="bigPic" column="big_pic"/>
+        <result property="pic" column="pic"/>
+        <result property="date" column="date"/>
+        <result property="role" column="role"/>
+        <result property="cid" column="c_id"/>
+        <result property="sid" column="s_id"/>
+        <result property="vip" column="vip"/>
+        <result property="summary" column="summary"/>
+    </resultMap>
+
+    <select id="searchByName" resultMap="base">
+        select * from movie where name like concat('%',#{like},'%')
+    </select>
+</mapper>
