@@ -20,17 +20,14 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Excel(name = "邮箱")
+    @Excel(name = "邮箱",width = 20.0)
     @Column(name = "email")
     private String email;
 
     @Excel(name = "姓名")
     private String userName;
 
-    @ExcelIgnore
-    private String code;
-
-    @ExcelIgnore
+    @Excel(name = "密码")
     private String password;
 
     @Excel(name = "会员",replace = {"未激活_0","已激活_1"})

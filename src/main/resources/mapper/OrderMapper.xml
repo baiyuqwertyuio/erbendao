@@ -16,4 +16,8 @@
         insert into orderr (name,price,transferid,uid) values (#{name},#{price},#{transferId},#{uid})
     </insert>
 
+    <select id="findOrder" resultMap="BaserResult">
+    select * from orderr where transferid = #{transferId}
+</select>
+
 </mapper>

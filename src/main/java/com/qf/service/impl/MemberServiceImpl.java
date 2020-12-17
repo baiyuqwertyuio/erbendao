@@ -61,7 +61,7 @@ public class MemberServiceImpl implements MemberService {
         order1.setTransferId(replace);
         orderMapper.insertOrder(order1);
         AlipayUtils alipayUtils = new AlipayUtils();
-        String pay = alipayUtils.pay(request, response, order);
+        String pay = alipayUtils.pay(request, response, order1);
         BaseResp baseResp = new BaseResp();
         baseResp.setData(pay);
         return baseResp;

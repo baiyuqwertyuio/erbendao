@@ -38,7 +38,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "getuser",method = RequestMethod.GET)
+    @RequestMapping(value = "/getuser",method = RequestMethod.GET)
     public BaseResp getUser(HttpServletRequest request,@RequestParam String token){
         BaseResp baseResp = new BaseResp();
         User user = userUtils.getUser(request,token);

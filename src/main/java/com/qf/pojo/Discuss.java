@@ -1,26 +1,23 @@
 package com.qf.pojo;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  *
- * 评论接口类
- * 主键ID, 用户UID, 电影MID, 内容content, 评论时间time
+ * 评论实体类
+ * ID, 用户ID, 电影ID, 评论内容content, 评论时间time
  *
  */
 
 @Data
-@Entity
 @Table(name = "discuss")
+@Entity
 public class Discuss {
 
     @Id
@@ -31,10 +28,12 @@ public class Discuss {
 
     private Integer mid;
 
+    private String name;
+
     private String content;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date time;
 
 }

@@ -1,15 +1,19 @@
 server:
- port: 8081
+ port: 8090
 spring:
  datasource:
   driver-class-name: com.mysql.jdbc.Driver
   url: jdbc:mysql://localhost:3306/erbendao?useUnicode=true&characterEncoding=UTF-8&useSSL=false
   username: root
   password: root
-  mail:
+ jpa:
+    database: MYSQL
+    show-sql: true
+    generate-ddl: true
+ mail:
     host: smtp.qq.com
     username: 297966645@qq.com
-    password: mdbpnmpygtvbbdhe
+    password: viwusorzsxjtbhij
     properties:
       mail:
         smtp:
