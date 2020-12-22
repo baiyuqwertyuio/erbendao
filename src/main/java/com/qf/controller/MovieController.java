@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-@CrossOrigin
+//电影前台管理
 @RestController
 @RequestMapping("/movie")
 public class MovieController {
@@ -47,13 +47,8 @@ public class MovieController {
         return movieService.searchByName(like);
     }
 
-    @RequestMapping(value = "/upload",method = RequestMethod.POST)
-    public BaseResp upload(@RequestParam("file") MultipartFile multipartFile){
-        return uploadUtils.upload(multipartFile);
-    }
-
     @RequestMapping(value = "/uploading",method = RequestMethod.GET)
     public BaseResp uploading(@RequestBody Movie movie){
-        return movieService.uploading(movie);
+        return movieService.insertOrUpdate(movie);
     }
 }

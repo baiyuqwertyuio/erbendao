@@ -20,4 +20,12 @@
     select * from orderr where transferid = #{transferId}
 </select>
 
+
+    <select id="findAll" resultType="ordList">
+    SELECT orderr.id,orderr.`name`,orderr.`price`,orderr.`transferid` as transferId,user.`user_name` as userName FROM orderr,USER WHERE orderr.`uid`=user.`id`
+</select>
+
+    <delete id="delete">
+    delete from orderr where id=#{id}
+</delete>
 </mapper>

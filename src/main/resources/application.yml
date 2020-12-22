@@ -1,27 +1,33 @@
 server:
  port: 8090
 spring:
- datasource:
-  driver-class-name: com.mysql.jdbc.Driver
-  url: jdbc:mysql://localhost:3306/erbendao?useUnicode=true&characterEncoding=UTF-8&useSSL=false
-  username: root
-  password: root
- jpa:
-    database: MYSQL
-    show-sql: true
-    generate-ddl: true
- mail:
-    host: smtp.qq.com
-    username: 297966645@qq.com
-    password: viwusorzsxjtbhij
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-    default-encoding: UTF-8
+   jackson:
+     time-zone: GMT+8
+   datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/erbendao?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: root
+   jpa:
+      database: MYSQL
+      show-sql: true
+      generate-ddl: true
+   mail:
+      host: smtp.qq.com
+      username: 297966645@qq.com
+      password: viwusorzsxjtbhij
+      properties:
+        mail:
+          smtp:
+            auth: true
+            starttls:
+              enable: true
+              required: true
+      default-encoding: UTF-8
+   servlet:
+     multipart:
+       max-file-size: 10MB
+       max-request-size: 100MB
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.qf.pojo

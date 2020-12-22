@@ -1,5 +1,6 @@
 package com.qf.dao;
 
+import com.qf.pojo.BackMovie;
 import com.qf.pojo.Movie;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -10,4 +11,6 @@ import java.util.List;
 @Repository
 public interface MovieMapper {
     List<Movie> searchByName(@Param("like") String like);
+
+    List<BackMovie> selectAll();
 }

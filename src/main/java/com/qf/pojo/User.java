@@ -25,12 +25,19 @@ public class User implements Serializable {
     private String email;
 
     @Excel(name = "姓名")
+    @Column(name = "user_name")
     private String userName;
+
+    @ExcelIgnore
+    private String code;
 
     @Excel(name = "密码")
     private String password;
 
     @Excel(name = "会员",replace = {"未激活_0","已激活_1"})
-    private String members;
+    private Integer members;
+
+    @ExcelIgnore
+    private String token;
 
 }

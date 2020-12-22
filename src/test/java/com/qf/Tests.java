@@ -4,10 +4,8 @@ import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
-import com.qf.common.BaseResp;
 import com.qf.dao.MovieMapper;
 import com.qf.dao.UserRepository;
-import com.qf.pojo.Movie;
 import com.qf.pojo.User;
 import com.qf.service.MovieService;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -18,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
 
@@ -54,5 +51,4 @@ public class Tests {
             userRepository.saveAndFlush(user);
         }
     }
-
 }

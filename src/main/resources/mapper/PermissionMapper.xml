@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.PermissionMapper">
+
+
+    <select id="findPermissionByEmail" resultType="Permission">
+        SELECT user.`id`,permission.`name` FROM USER,user_role ur,role,role_per rp,permission WHERE user.`id`=ur.`uid` AND ur.`rid`=role.`id` AND role.`id`=rp.`rid` AND rp.`pid`=permission.`id` AND user.email = #{email}
+    </select>
+</mapper>

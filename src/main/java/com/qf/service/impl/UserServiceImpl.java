@@ -1,5 +1,6 @@
 package com.qf.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.qf.common.BaseResp;
 import com.qf.dao.UserRepository;
 import com.qf.pojo.User;
@@ -7,10 +8,16 @@ import com.qf.service.UserService;
 import com.qf.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
@@ -80,6 +87,7 @@ public class UserServiceImpl implements UserService {
 
         String o =(String) redisUtils.get(email);
         if (o != null && code.equals(o)){
+            user.setMembers(0);
             userRepository.saveAndFlush(user);
             baseResp.setCode(200);
             baseResp.setMsg("注册成功");
@@ -99,6 +107,8 @@ public class UserServiceImpl implements UserService {
         if (user.getPassword() != null && user.getPassword().equals(byEmail.getPassword())){
             UUID uuid = UUID.randomUUID();
             redisUtils.set(uuid.toString(),byEmail);
+            byEmail.setToken(uuid.toString());
+            userRepository.saveAndFlush(byEmail);
             baseResp.setData(uuid.toString());
             baseResp.setCode(200);
             return baseResp;
@@ -106,5 +116,90 @@ public class UserServiceImpl implements UserService {
         baseResp.setCode(2004);
         baseResp.setMsg("密码或邮箱错误！");
         return baseResp;
+    }
+
+    //后台管理方法
+    @Override
+    public BaseResp findAll(Integer page, Integer limit) {
+        PageRequest pageRequest = new PageRequest(page - 1, limit);
+        BaseResp baseResp = new BaseResp();
+        Page<User> all = userRepository.findAll(pageRequest);
+        baseResp.setData(all.getContent());
+        baseResp.setCount(all.getTotalElements());
+        baseResp.setCode(200);
+        return baseResp;
+    }
+
+    @Override
+    public BaseResp findById(Integer id) {
+        Optional<User> byId = userRepository.findById(id);
+        BaseResp baseResp = new BaseResp();
+        if(byId.isPresent()){
+            baseResp.setData(byId.get());
+            baseResp.setCode(200);
+            baseResp.setMsg("成功");
+        }else {
+            baseResp.setCode(201);
+            baseResp.setMsg("失败");
+        }
+        return baseResp;
+    }
+
+    @Override
+    public BaseResp saveOrUpdate(User user) {
+        User user1 = userRepository.saveAndFlush(user);
+        BaseResp baseResp = new BaseResp();
+        //修改
+        if(user1!=null&&user1.getId()!=null){
+            baseResp.setData(user1);
+            baseResp.setCode(200);
+            baseResp.setMsg("新增成功");
+        }else if(user1!=null&&user1.getId()==null){
+            //新增
+            baseResp.setData(user1);
+            baseResp.setCode(200);
+            baseResp.setMsg("新增成功");
+        }
+        return baseResp;
+    }
+
+    @Override
+    public BaseResp deleteById(Integer id) {
+        BaseResp baseResp = new BaseResp();
+        userRepository.deleteById(id);
+        baseResp.setCode(200);
+        baseResp.setMsg("删除失败");
+        return baseResp;
+    }
+
+    @Override
+    public BaseResp findUserByToken(HttpServletRequest request) {
+        String token = getToken(request);
+        Object o = redisUtils.get(token);
+        Object o1 = JSONObject.toJSON(o);
+        User user = JSONObject.parseObject(o1.toString(), User.class);
+        BaseResp baseResp = new BaseResp();
+        baseResp.setData(user);
+        baseResp.setMsg("获取用户成功");
+        baseResp.setCode(200);
+        return baseResp;
+    }
+
+    @Override
+    public List<User> outAll() {
+        List<User> all = userRepository.findAll();
+        return all;
+    }
+
+
+    public String getToken(HttpServletRequest request) {
+        String token = "";
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                token = cookie.getValue();
+            }
+        }
+        return token;
     }
 }

@@ -10,9 +10,10 @@
         <result column="password" property="password"></result>
         <result column="code" property="code"></result>
         <result column="member" property="member"></result>
+        <result column="user_name" property="userName"></result>
     </resultMap>
 
-    <select id="fingByEmail" resultMap="BaserResult">
+    <select id="findByEmail" resultMap="BaserResult">
         select * from user where email=#{email}
     </select>
 

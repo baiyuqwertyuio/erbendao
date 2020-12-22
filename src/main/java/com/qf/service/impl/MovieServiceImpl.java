@@ -3,10 +3,13 @@ package com.qf.service.impl;
 import com.qf.common.BaseResp;
 import com.qf.dao.MovieMapper;
 import com.qf.dao.MovieRepository;
+import com.qf.pojo.BackMovie;
 import com.qf.pojo.Movie;
 import com.qf.service.MovieService;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,6 +23,7 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     MovieMapper movieMapper;
 
+    //前台
     @Override
     public BaseResp findAll() {
         BaseResp baseResp = new BaseResp();
@@ -45,6 +49,7 @@ public class MovieServiceImpl implements MovieService {
         return baseResp;
     }
 
+    //前后端共用
     @Override
     public BaseResp findById(Integer id) {
         BaseResp baseResp = new BaseResp();
@@ -98,8 +103,34 @@ public class MovieServiceImpl implements MovieService {
         return baseResp;
     }
 
+//    @Override
+//    public BaseResp uploading(Movie movie) {
+//        BaseResp baseResp = new BaseResp();
+//        Movie movie1 = movieRepository.saveAndFlush(movie);
+//        if (movie1!=null){
+//            baseResp.setMsg("上传成功");
+//            baseResp.setCode(200);
+//            return baseResp;
+//        }
+//        baseResp.setMsg("上传失败");
+//        baseResp.setCode(300);
+//        return baseResp;
+//    }
+
+
+    //后台
     @Override
-    public BaseResp uploading(Movie movie) {
+    public BaseResp selectAll() {
+        BaseResp baseResp = new BaseResp();
+        List<BackMovie> backMovies = movieMapper.selectAll();
+        baseResp.setCode(200);
+        baseResp.setMsg("查询成功");
+        baseResp.setData(backMovies);
+        return baseResp;
+    }
+
+    @Override
+    public BaseResp insertOrUpdate(Movie movie) {
         BaseResp baseResp = new BaseResp();
         Movie movie1 = movieRepository.saveAndFlush(movie);
         if (movie1!=null){
@@ -110,5 +141,26 @@ public class MovieServiceImpl implements MovieService {
         baseResp.setMsg("上传失败");
         baseResp.setCode(300);
         return baseResp;
+    }
+
+    @Override
+    public BaseResp delete(Integer id) {
+        BaseResp baseResp = new BaseResp();
+        try {
+            movieRepository.deleteById(id);
+            baseResp.setCode(200);
+            baseResp.setMsg("删除成功");
+            return baseResp;
+        } catch (Exception e) {
+            baseResp.setCode(300);
+            baseResp.setMsg("删除失败");
+            return baseResp;
+        }
+    }
+
+    @Override
+    public List<Movie> outAll() {
+        List<Movie> all = movieRepository.findAll();
+        return all;
     }
 }

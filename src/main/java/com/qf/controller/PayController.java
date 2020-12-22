@@ -49,9 +49,10 @@ public class PayController {
                 Order order = orderService.findOrder(out_trade_no);
                 Integer uid = order.getUid();
                 User user = userRepository.findById(uid).get();
-                user.setMembers("1");
+                user.setMembers(1);
                 userRepository.saveAndFlush(user);
-
+                String key = user.getToken();
+                redisUtils.set(key,user);
             }
 
         }else{

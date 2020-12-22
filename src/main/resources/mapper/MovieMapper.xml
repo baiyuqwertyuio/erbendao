@@ -21,4 +21,8 @@
     <select id="searchByName" resultMap="base">
         select * from movie where name like concat('%',#{like},'%')
     </select>
+
+    <select id="selectAll" resultType="BackMovie">
+        SELECT m.`id`,m.`name`,m.`score`,m.`url`,m.`big_pic` bigPic,m.`pic`,m.`date`,m.`role`,c.`name` cat,s.`type`,m.`vip`,m.`summary` FROM movie m,catalog c,seconde s WHERE m.`c_id`=c.`id` AND m.`s_id`=s.`id`
+    </select>
 </mapper>

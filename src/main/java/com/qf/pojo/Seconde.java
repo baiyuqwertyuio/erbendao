@@ -4,17 +4,14 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Data
 @Entity
-@Table(name = "bulletChat")
-public class BulletChat {
+@Table(name = "seconde")
+@Data
+public class Seconde {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    private Integer mid;
-
-    private String chat;
-
-
+    private String type;
+    @Column(name = "c_id")
+    private Integer cid;
 }
